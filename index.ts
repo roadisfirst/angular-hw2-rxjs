@@ -4,10 +4,6 @@ import { map, filter, startWith } from 'rxjs/operators';
 
 import { calculateMortgage } from './calculate';
 
-interface Result {
-  answer?: string;
-}
-
 const loanLengthInput = (document.getElementById(
   'loanLength'
 ) as HTMLInputElement).value;
@@ -32,7 +28,7 @@ const years = fromEvent(document.getElementById('loanLength'), 'input').pipe(
   map(Number.parseInt)
 );
 
-const answer: Observable<Result> = combineLatest([interest, loan, years]).pipe(
+const answer = combineLatest([interest, loan, years]).pipe(
   map(([interest, loan, years]) => {
     return { answer: calculateMortgage(interest, loan, years) };
   })
